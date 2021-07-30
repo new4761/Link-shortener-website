@@ -1,23 +1,17 @@
-import logo from './logo.svg';
+import { useState } from "react";
 import './App.css';
-
+import { Home } from "./pages/Home"
+import { getShotenLink } from "./services/ShortenService"
 function App() {
+  const [url, seturl] = useState("");
+  const setUrl = async () => {
+    seturl(await getShotenLink(document.getElementById("url").value));
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input id="url"></input>
+      <input type="submit" onClick={setUrl}></input>
+      <Home url={url} />
     </div>
   );
 }
